@@ -2,12 +2,14 @@ import os
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
+from authentication import get_spotify_oauth
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv('SECRET_KEY')
 
 @app.route('/')
 def index():
@@ -15,26 +17,14 @@ def index():
 
 @app.route('/login')
 def login():
-    sp_oauth = SpotifyOAuth(
-        client_id=os.getenv('CLIENT_ID'),
-        client_secret=os.getenv('CLIENT_SECRET'),
-        redirect_uri=os.getenv('REDIRECT_URI'),
-        scope='user-read-recently-played'
-    )
-
+    sp_oauth = get_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
 
     return redirect(auth_url)
 
 @app.route('/callback')
 def callback():
-    sp_oauth = SpotifyOAuth(
-        client_id=os.getenv('CLIENT_ID'),
-        client_secret=os.getenv('CLIENT_SECRET'),
-        redirect_uri=os.getenv('REDIRECT_URI'),
-        scope='user-read-recently-played'
-    )
-
+    sp_oauth = get_spotify_oauth()
     session.clear()
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
