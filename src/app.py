@@ -34,7 +34,54 @@ def callback():
 
     return redirect(url_for('recently_played'))
 
-@app.route('/recently-played')
+@app.route('/tracks')
+def top_tracks():
+    token_info = session.get("token_info", None)
+
+    if not token_info:
+        return redirect(url_for('login'))
+    
+    sp_oauth = get_spotify_oauth()
+    if sp_oauth.is_token_expired(token_info):
+        token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+        session['token_info'] = token_info
+
+    sp = Spotify(auth=token_info['access_token'])
+
+    time_range = request.args.get('time', 'short_term')
+
+    try:
+        results = sp.current_user_top_tracks(limit=50, time_range=time_range)
+    except SpotifyException as e:
+        if e.http_status == 401:
+            token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+            session['token_info'] = token_info
+            sp = Spotify(auth=token_info['access_token'])
+            results = sp.current_user_top_tracks(limit=50, time_range='short_term')
+        else:
+            raise e
+        
+    tracks = [];
+
+    for item in results['items']:
+        track_name = item['name']
+        artist_name = item['artists'][0]['name']
+        artist_url = item['artists'][0]['external_urls']['spotify']
+        cover_art = item['album']['images'][0]['url']
+        song_url = item['external_urls']['spotify']
+        
+        track = {
+            "artist": artist_name,
+            "artist_url": artist_url,
+            "name": track_name,
+            "cover_art": cover_art,
+            "song_url": song_url
+        }
+        tracks.append(track)
+
+    return render_template('top_tracks.html', tracks=tracks, enumerate=enumerate)
+
+@app.route('/tracks/recent')
 def recently_played():
     token_info = session.get("token_info", None)
 
