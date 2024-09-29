@@ -95,7 +95,7 @@ body {
     width: 128px;
     height: 128px;
     border-radius: 5px;
-    transition: outline .3s ease-in-out;
+    transition: outline .08s ease-in-out;
     text-decoration: none;
     outline: none;
 }
