@@ -12,10 +12,17 @@
     <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 <body>
+    <h2 class="heading">Recently Played Tracks</h2>
     <div class="tracks">
-        <h2>Recently Played Tracks</h2>
-        {% for artist, track in tracks %}
+        {% for artist, track, cover_art in tracks %}
+        <div class="track">
+            <div class="track-cover">
+                <img src="{{ cover_art }}" alt="Cover Art">
+            </div>
+            <div class="track-info">
                 <h5>{{ artist }} - {{ track }}</h5>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </body>
