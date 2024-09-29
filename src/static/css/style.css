@@ -16,6 +16,16 @@ body {
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
 .spotify-button {
     display: flex;
     justify-content: center;
@@ -64,7 +74,7 @@ body {
 
 .track-info {
     display: flex;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     justify-content: center;
     text-align: center;
     flex-direction: column;
@@ -75,14 +85,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -5px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
+    color: var(--alt-color);
+}
+
+.track-played {
+    font-size: .6rem;
+    color: var(--alt-color);
+    display: block;
+    margin-top: -6px;
+    margin-bottom: 4px;
 }
 
 .track-name {
     font-size: 1rem;
     font-weight: bold;
     display: block;
+    margin-bottom: 3px;
 }
 
 .track-artist {
@@ -95,15 +114,9 @@ body {
     width: 128px;
     height: 128px;
     border-radius: 5px;
-    transition: outline .08s ease-in-out;
-    text-decoration: none;
-    outline: none;
+    transition: outline .15s ease-in-out;
 }
 
 .track-cover img:hover {
     outline: 2px solid var(--alt-color);
-}
-
-.track-cover img:visited {
-    outline: none;
 }

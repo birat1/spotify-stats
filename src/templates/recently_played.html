@@ -16,6 +16,7 @@
     <div class="tracks">
         {% for index, track in enumerate(tracks) %}
         <div class="track">
+            <span class="track-index">{{ index + 1 }}</span>
             <div class="track-cover">
                 <a href="{{ track.song_url }}" target="_blank">
                     <img src="{{ track.cover_art }}" alt="Cover Art">
@@ -23,10 +24,12 @@
             </div>
             <div class="track-info">
                 <div class="track-header">
-                    <span class="track-index">{{ index + 1 }}</span>
+                    <span class="track-played">{{ track.played_at }}</span>
                     <span class="track-name">{{ track.name }}</span>
                 </div>
-                <span class="track-artist">{{ track.artist }}</span>
+                <a href="{{ track.artist_url }}" target="_blank">
+                    <span class="track-artist">{{ track.artist }}</span>
+                </a>
             </div>
         </div>
         {% endfor %}
