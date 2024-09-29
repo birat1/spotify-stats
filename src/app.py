@@ -1,7 +1,6 @@
 import os
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy import Spotify
-from spotipy.oauth2 import SpotifyOAuth
 from spotipy.exceptions import SpotifyException
 from authentication import get_spotify_oauth
 
@@ -59,20 +58,23 @@ def recently_played():
         else:
             raise e
 
-    seen_tracks = set()
-    unique_tracks = []
+    tracks = [];
 
     for item in results['items']:
         track_name = item['track']['name']
         artist_name = item['track']['artists'][0]['name']
         cover_art = item['track']['album']['images'][0]['url']
-        track = (artist_name, track_name, cover_art)
+        song_url = item['track']['external_urls']['spotify']
+        
+        track = {
+            "artist": artist_name,
+            "name": track_name,
+            "cover_art": cover_art,
+            "song_url": song_url
+        }
+        tracks.append(track)
 
-        if track not in seen_tracks:
-            seen_tracks.add(track)
-            unique_tracks.append(track)
-
-    return render_template('recently_played.html', tracks=unique_tracks)
+    return render_template('recently_played.html', tracks=tracks, enumerate=enumerate)
 
 
 if __name__ == "__main__":
