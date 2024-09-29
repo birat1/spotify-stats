@@ -1,5 +1,4 @@
 import os
-from flask import session, request
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
