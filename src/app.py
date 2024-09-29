@@ -2,6 +2,7 @@ import os
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.exceptions import SpotifyException
 from authentication import get_spotify_oauth
 
 from dotenv import load_dotenv
@@ -38,9 +39,25 @@ def recently_played():
 
     if not token_info:
         return redirect(url_for('login'))
+    
+    sp_oauth = get_spotify_oauth()
+    if sp_oauth.is_token_expired(token_info):
+        token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+        session['token_info'] = token_info
+
 
     sp = Spotify(auth=token_info['access_token'])
-    results = sp.current_user_recently_played(limit=50)
+
+    try:
+        results = sp.current_user_recently_played(limit=50)
+    except SpotifyException as e:
+        if e.http_status == 401:
+            token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+            session['token_info'] = token_info
+            sp = Spotify(auth=token_info['access_token'])
+            results = sp.current_user_recently_played(limit=50)
+        else:
+            raise e
 
     seen_tracks = set()
     unique_tracks = []
@@ -48,7 +65,8 @@ def recently_played():
     for item in results['items']:
         track_name = item['track']['name']
         artist_name = item['track']['artists'][0]['name']
-        track = (artist_name, track_name)
+        cover_art = item['track']['album']['images'][0]['url']
+        track = (artist_name, track_name, cover_art)
 
         if track not in seen_tracks:
             seen_tracks.add(track)
