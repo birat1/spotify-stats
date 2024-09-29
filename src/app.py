@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy import Spotify
 from spotipy.exceptions import SpotifyException
@@ -63,14 +65,18 @@ def recently_played():
     for item in results['items']:
         track_name = item['track']['name']
         artist_name = item['track']['artists'][0]['name']
+        artist_url = item['track']['artists'][0]['external_urls']['spotify']
         cover_art = item['track']['album']['images'][0]['url']
         song_url = item['track']['external_urls']['spotify']
+        played_at = datetime.strptime(item['played_at'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%d/%m/%y, %H:%M')
         
         track = {
             "artist": artist_name,
+            "artist_url": artist_url,
             "name": track_name,
             "cover_art": cover_art,
-            "song_url": song_url
+            "song_url": song_url,
+            "played_at": played_at
         }
         tracks.append(track)
 
