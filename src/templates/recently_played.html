@@ -14,13 +14,19 @@
 <body>
     <h2 class="heading">Recently Played Tracks</h2>
     <div class="tracks">
-        {% for artist, track, cover_art in tracks %}
+        {% for index, track in enumerate(tracks) %}
         <div class="track">
             <div class="track-cover">
-                <img src="{{ cover_art }}" alt="Cover Art">
+                <a href="{{ track.song_url }}" target="_blank">
+                    <img src="{{ track.cover_art }}" alt="Cover Art">
+                </a>
             </div>
             <div class="track-info">
-                <h5>{{ artist }} - {{ track }}</h5>
+                <div class="track-header">
+                    <span class="track-index">{{ index + 1 }}</span>
+                    <span class="track-name">{{ track.name }}</span>
+                </div>
+                <span class="track-artist">{{ track.artist }}</span>
             </div>
         </div>
         {% endfor %}

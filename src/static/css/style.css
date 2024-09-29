@@ -1,7 +1,8 @@
 :root {
-    --background: #121212;
+    --background: #101010;
     --button: #1db954;
     --text: #f0f0f0;
+    --alt-color: #b3b3b3;
     --font-family: "Noto Sans Mono", "Consolas", monospace;
 }
 
@@ -34,20 +35,75 @@ body {
 }
 
 .heading {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
     color: var(--text);
-    width: 100%;
+}
+
+.tracks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 50px;
+    box-sizing: border-box;
 }
 
 .track {
-    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.track img {
+.track-cover {
+    margin-bottom: 5px; /* Adjust as needed */
+}
+
+.track-info {
+    color: var(--text);
+}
+
+.track-info {
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.track-index {
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+.track-name {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.track-artist {
+    font-size: 0.8rem;
+    color: var(--alt-color);
+    display: block;
+}
+
+.track-cover img {
     width: 128px;
     height: 128px;
+    border-radius: 5px;
+    transition: outline .3s ease-in-out;
+    text-decoration: none;
+    outline: none;
+}
+
+.track-cover img:hover {
+    outline: 2px solid var(--alt-color);
+}
+
+.track-cover img:visited {
+    outline: none;
 }
