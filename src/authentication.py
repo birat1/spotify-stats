@@ -9,5 +9,5 @@ def get_spotify_oauth():
         client_id=os.getenv('CLIENT_ID'),
         client_secret=os.getenv('CLIENT_SECRET'),
         redirect_uri=os.getenv('REDIRECT_URI'),
-        scope='user-read-recently-played'
+        scope='user-read-recently-played user-top-read'
     )

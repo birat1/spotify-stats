@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Tracks</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="../static/css/top.css" />
+</head>
+<body>
+    <h2 class="heading">Top Tracks</h2>
+    <div class="tracks">
+        {% for index, track in enumerate(tracks) %}
+        <div class="track">
+            <span class="track-index">{{ index + 1 }}</span>
+            <div class="track-cover">
+                <img src="{{ track.cover_art }}" alt="Cover Art">
+            </div>
+            <div class="track-info">
+                <div class="track-header">
+                    <a href="{{ track.song_url }}" target="_blank">
+                        <span class="track-name">{{ track.name }}</span>
+                    </a>
+                </div>
+                <a href="{{ track.artist_url }}" target="_blank">
+                    <span class="track-artist">{{ track.artist }}</span>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
