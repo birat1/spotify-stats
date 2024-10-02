@@ -9,10 +9,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet"/>
 
+    <link rel="stylesheet" href="../static/css/nav.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 <body>
-    <h2 class="heading">Recently Played Tracks</h2>
+    <nav class="navbar"></nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/tracks">Top Tracks</a></li>
+            <li class="nav-item"><a href="/artists">Top Artists</a></li>
+            <li class="nav-item"><a href="/tracks/recent">Recently Played</a></li>
+        </ul>
+    </nav>
+
+    <h2 class="heading">
+        Recently Played Tracks
+    </h2>
     <div class="tracks">
         {% for index, track in enumerate(tracks) %}
         <div class="track">
