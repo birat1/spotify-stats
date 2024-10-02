@@ -86,14 +86,43 @@ body {
     display: inline;
 }
 
-.track-duration {
+.track-duration, .artist-popularity {
     font-size: .8rem;
     color: var(--alt-color);
     text-align: right;
     margin-left: 550px;
-    margin-bottom: -14px;
+    margin-bottom: -20px;
     display: flex;
 }
+
+.artist-popularity {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    position: relative;
+}
+
+.artist-popularity:hover::after {
+    content: 'popularity score';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--alt-color);
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: .7rem;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+}
+
+.artist-popularity:hover::after {
+    opacity: 1;
+}
+
 
 .track-album, .artist-followers {
     font-size: .7rem;
