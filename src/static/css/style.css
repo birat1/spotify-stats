@@ -6,16 +6,16 @@
     --font-family: "Noto Sans Mono", "Consolas", monospace;
 }
 
+a, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
 body {
     background: var(--background);
     font-family: var(--font-family);
     height: 100vh;
     margin: 0;
-}
-
-a, a:visited {
-    text-decoration: none;
-    color: inherit;
 }
 
 .spotify-button {
