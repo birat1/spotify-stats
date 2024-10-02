@@ -11,17 +11,9 @@ body {
     font-family: var(--font-family);
     height: 100vh;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-a:visited {
+a, a:visited {
     text-decoration: none;
     color: inherit;
 }
@@ -45,10 +37,9 @@ a:visited {
 }
 
 .heading {
-    margin-top: 100px;
+    margin-top: 20px;
     text-align: center;
     color: var(--text);
-    margin-bottom: 0;
 }
 
 .tracks {
@@ -66,14 +57,11 @@ a:visited {
 }
 
 .track-cover {
-    margin-bottom: 5px; /* Adjust as needed */
+    margin-bottom: 5px;
 }
 
 .track-info {
     color: var(--text);
-}
-
-.track-info {
     display: flex;
     margin-bottom: 10px;
     justify-content: center;
@@ -94,21 +82,20 @@ a:visited {
     font-size: .6rem;
     color: var(--alt-color);
     display: block;
-    margin-top: -6px;
-    margin-bottom: 4px;
+    margin: -6px 0 4px;
 }
 
 .track-name {
     font-size: 1rem;
     font-weight: bold;
-    display: block;
+    display: inline;
     margin-bottom: 3px;
 }
 
 .track-artist {
     font-size: 0.8rem;
     color: var(--alt-color);
-    display: block;
+    display: inline;
 }
 
 .track-cover img {
@@ -120,4 +107,8 @@ a:visited {
 
 .track-cover img:hover {
     outline: 2px solid var(--alt-color);
+}
+
+.track-artist:hover {
+    text-decoration: underline;
 }

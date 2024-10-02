@@ -1,0 +1,25 @@
+.navbar, .nav-list {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar {
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 15px;
+    color: var(--text);
+}
+
+.nav-item a.active {
+    color: var(--alt-color);
+    pointer-events: none;
+}

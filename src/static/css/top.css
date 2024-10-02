@@ -3,15 +3,11 @@
     --button: #1db954;
     --text: #f0f0f0;
     --alt-color: #b3b3b3;
+    --alt-color2: #7d7d7d;
     --font-family: "Noto Sans Mono", "Consolas", monospace;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-a:visited {
+a, a:visited {
     text-decoration: none;
     color: inherit;
 }
@@ -23,50 +19,97 @@ body {
     margin: 0;
 }
 
-.heading {
-    margin-top: 100px;
+.heading,
+.time-range {
     text-align: center;
     color: var(--text);
-    margin-bottom: 20px;
 }
 
-.track {
+.time-range {
+    margin: -10px 0 50px;
+}
+
+.time-range label,
+.time-range select {
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.time-range label {
+    margin-right: 10px;
+}
+
+.time-range select {
+    padding: 5px 10px;
+    background-color: var(--background);
+    border: 1px solid var(--alt-color);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color .3s;
+}
+
+.time-range select:hover, .time-range select:focus {
+    border-color: var(--button);
+}
+
+.track, .artist {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.track-index {
+.track-index, .artist-index {
     font-size: 1rem;
     width: 40px;
     text-align: right;
-    margin-left: 20%;
+    margin-left: 25%;
     margin-right: 30px;
     color: var(--alt-color);
 }
 
-.track-info {
+.track-info, .artist-info {
     color: var(--text);
 }
 
-.track-name {
-    font-size: 1rem;
-    font-weight: bold;
-    display: block;
+.track-header, .artist-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    width: 100%;
     margin-bottom: 3px;
 }
 
-.track-artist {
-    font-size: 0.8rem;
-    color: var(--alt-color);
-    display: block;
+.track-name, .artist-name {
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline;
 }
 
-.track-name:hover, .track-artist:hover {
+.track-duration {
+    font-size: .8rem;
+    color: var(--alt-color);
+    text-align: right;
+    margin-left: 30px;
+}
+
+.track-album, .artist-followers {
+    font-size: .7rem;
+    margin-bottom: 12px;
+    display: block;
+    color: var(--alt-color2);
+}
+
+.track-artist, .artist-genres {
+    font-size: .8rem;
+    color: var(--alt-color);
+    display: inline;
+}
+
+.track-name:hover, .track-artist:hover, .artist-name:hover {
     text-decoration: underline;
 }
 
-.track-cover img {
+.track-cover img, .artist-cover img {
     width: 96px;
     height: 96px;
     border-radius: 5px;
