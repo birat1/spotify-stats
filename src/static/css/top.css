@@ -69,11 +69,12 @@ body {
 
 .track-info, .artist-info {
     color: var(--text);
+    display: flex;
+    flex-direction: column;
 }
 
 .track-header, .artist-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     align-items: center;
     width: 100%;
     margin-bottom: 3px;
@@ -89,7 +90,9 @@ body {
     font-size: .8rem;
     color: var(--alt-color);
     text-align: right;
-    margin-left: 30px;
+    margin-left: 550px;
+    margin-bottom: -14px;
+    display: flex;
 }
 
 .track-album, .artist-followers {
