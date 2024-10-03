@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 <body>
-    <nav class="navbar"></nav>
+    <nav class="navbar">
         <ul class="nav-list">
             <li class="nav-item logout-button"><a href="/logout">Logout</a></li>
             <li class="nav-item"><a href="/tracks">Top Tracks</a></li>
@@ -22,9 +22,9 @@
         </ul>
     </nav>
 
-    <h2 class="heading">
-        Recently Played Tracks
-    </h2>
+    <div class="heading">
+        <h2>Recently Played Tracks</h2>
+    </div>
     <div class="tracks">
         {% for index, track in enumerate(tracks) %}
         <div class="track">
