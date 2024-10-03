@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from dateutil import parser
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy.exceptions import SpotifyException
 from authentication import get_spotify_client, get_spotify_oauth, handle_spotify_exception
@@ -49,7 +49,7 @@ def top_artists():
     except SpotifyException as e:
         if handle_spotify_exception(e, session['token_info']):
             return top_artists()
-        
+
     artists = []
     for item in results['items']:
         artist = {
@@ -118,7 +118,7 @@ def recently_played():
             'name': item['track']['name'],
             'cover_art': item['track']['album']['images'][0]['url'],
             'song_url': item['track']['external_urls']['spotify'],
-            'played_at': datetime.strptime(item['played_at'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%d/%m/%y, %H:%M')
+            'played_at': parser.parse(item['played_at']).strftime('%d/%m/%y, %H:%M')
         }
 
         tracks.append(track)
