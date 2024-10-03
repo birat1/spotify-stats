@@ -88,7 +88,7 @@ body {
     font-size: .8rem;
     color: var(--alt-color);
     text-align: right;
-    margin-left: 550px;
+    margin-left: 30%;
     display: flex;
     position: absolute;
 }
