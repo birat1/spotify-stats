@@ -30,6 +30,11 @@ def login():
 
     return redirect(auth_url)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 @app.route('/callback')
 def callback():
     sp_oauth = get_spotify_oauth()

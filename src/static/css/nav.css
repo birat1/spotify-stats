@@ -23,3 +23,12 @@
     color: var(--alt-color);
     pointer-events: none;
 }
+
+.logout-button {
+    font-size: .8rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px 15px;
+    text-decoration: none;
+}
