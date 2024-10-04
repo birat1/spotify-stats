@@ -1,7 +1,6 @@
 import os
 from dateutil import parser
 from flask import Flask, redirect, render_template, request, session, url_for
-from spotipy import Spotify
 from spotipy.exceptions import SpotifyException
 from authentication import get_spotify_client, get_spotify_oauth, handle_spotify_exception
 
