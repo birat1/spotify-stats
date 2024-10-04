@@ -1,6 +1,7 @@
 import os
 from dateutil import parser
 from flask import Flask, redirect, render_template, request, session, url_for
+from spotipy import Spotify
 from spotipy.exceptions import SpotifyException
 from authentication import get_spotify_client, get_spotify_oauth, handle_spotify_exception
 
@@ -8,13 +9,17 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
 def convert_duration(ms):
+    # Convert milliseconds to minutes and seconds
     mins = ms // 60000
     secs = (ms % 60000) // 1000
     return f"{mins}:{secs:02d}"
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Get user profile data from session
+    user_profile = session.get('user_profile', None)
+    # If user profile is not found, redirect to login
+    return render_template('index.html', user_profile=user_profile)
 
 @app.route('/login')
 def login():
@@ -24,17 +29,34 @@ def login():
 
 @app.route('/logout')
 def logout():
+    # Clear session data
     session.clear()
     return redirect(url_for('index'))
 
 @app.route('/callback')
 def callback():
+    # Get Spotify OAuth object
     sp_oauth = get_spotify_oauth()
     session.clear()
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session["token_info"] = token_info
-    return redirect(url_for('recently_played'))
+
+    # Get Spotify client
+    sp, redirect_response = get_spotify_client()
+    if redirect_response:
+        return redirect_response
+
+    # Get user profile data
+    user_profile = sp.current_user()
+    session['user_profile'] = {
+        'username': user_profile['display_name'],
+        'user_url': user_profile['external_urls']['spotify'],
+        'avatar': user_profile['images'][1]['url'],
+        'followers': user_profile['followers']['total']
+    }
+
+    return redirect(url_for('index'))
 
 @app.route('/artists')
 def top_artists():
@@ -42,8 +64,10 @@ def top_artists():
     if redirect_response:
         return redirect_response
 
+    # Get time range from query parameter
     time_range = request.args.get('time', 'short_term')
 
+    # Get top artists
     try:
         results = sp.current_user_top_artists(limit=50, time_range=time_range)
     except SpotifyException as e:
@@ -73,6 +97,7 @@ def top_tracks():
 
     time_range = request.args.get('time', 'short_term')
 
+    # Get top tracks
     try:
         results = sp.current_user_top_tracks(limit=50, time_range=time_range)
     except SpotifyException as e:
@@ -103,6 +128,7 @@ def recently_played():
     if redirect_response:
         return redirect_response
 
+    # Get recently played tracks
     try:
         results = sp.current_user_recently_played(limit=50)
     except SpotifyException as e:

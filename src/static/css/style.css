@@ -42,12 +42,71 @@ body {
     font-family: var(--font-family);
 }
 
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+    margin-right: 25%;
+    color: var(--text);
+}
+
+.profile-avatar {
+    margin-right: 20px;
+}
+
+.profile-avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;;
+}
+
+.profile-header, .profile-followers {
+    font-size: .7rem;
+    color: var(--alt-color);
+}
+
+.profile-name {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.profile-name:hover {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 3px;
+}
+
 .tracks {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     padding: 50px;
     box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+    .tracks {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .tracks {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .tracks {
+        grid-template-columns: 1fr;
+    }
 }
 
 .track {

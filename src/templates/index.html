@@ -9,13 +9,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet"/>
 
+    <link rel="stylesheet" href="../static/css/nav.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 <body>
-    <div class="spotify-button">
-        <a href="{{ url_for('login') }}" class="login-spotify">
-            <button>login with spotify</button>
-        </a>
-    </div>
+    {% if user_profile %}
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item logout-button"><a href="/logout">Logout</a></li>
+                <li class="nav-item"><a href="/tracks">Top Tracks</a></li>
+                <li class="nav-item"><a href="/artists">Top Artists</a></li>
+                <li class="nav-item"><a href="/tracks/recent">Recently Played</a></li>
+            </ul>
+        </nav>
+
+        <div class="profile-container">
+            <div class="profile-avatar">
+                <img src="{{ user_profile['avatar'] }}" alt="User's Avatar">
+            </div>
+            <div class="profile-info">
+                <span class="profile-header">Welcome,</span>
+                <a href="{{ user_profile['user_url'] }}" target="_blank">
+                    <span class="profile-name">{{ user_profile['username'] }}</span>
+                </a>
+                <span class="profile-followers">{{ user_profile['followers'] }} followers</span>
+            </div>
+        </div>
+    {% else %}
+        <div class="spotify-button">
+            <a href="{{ url_for('login') }}" class="login-spotify">
+                <button>login with spotify</button>
+            </a>
+        </div>
+    {% endif %}
 </body>
 </html>
